@@ -536,7 +536,7 @@ async function sendQ() {
   msgs.innerHTML += `<div class="msg-block msg-user"><span class="lbl">Spørgsmål</span>${esc(q)}</div>`;
   const lid = 'l'+Date.now();
   msgs.innerHTML += `<div class="msg-block msg-ai" id="${lid}">
-    <div class="lbl">Analyserer <span class="lbl-model">llama3-70b-8192</span></div>
+    <div class="lbl">Analyserer <span class="lbl-model">llama-3.3-70b-versatile</span></div>
     <div class="loading-row"><span></span><span></span><span></span></div>
   </div>`;
   input.value = '';
@@ -548,7 +548,7 @@ async function sendQ() {
       method: 'POST',
       headers: { 'Content-Type':'application/json', 'Authorization':'Bearer '+S.apiKey },
       body: JSON.stringify({
-        model: 'llama3-70b-8192',
+        model: 'llama-3.3-70b-versatile',
         max_tokens: 1200,
         messages: [
           { role:'system', content: buildPrompt() },
@@ -560,7 +560,7 @@ async function sendQ() {
     if (data.error) throw new Error(data.error.message);
     const text = data.choices?.[0]?.message?.content || 'Intet svar.';
     document.getElementById(lid).outerHTML = `<div class="msg-block msg-ai">
-      <div class="lbl">Analyse <span class="lbl-model">llama3-70b-8192 · ${esc(S.name)}</span></div>
+      <div class="lbl">Analyse <span class="lbl-model">llama-3.3-70b-versatile · ${esc(S.name)}</span></div>
       <div class="analysis-grid">${parseAnalysis(text)}</div>
     </div>`;
   } catch(err) {
