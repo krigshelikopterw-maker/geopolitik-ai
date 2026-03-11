@@ -331,7 +331,7 @@ textarea.admin-ta { min-height: 130px; resize: vertical; }
     <div class="sidebar-section">
       <h3>Groq API-nøgle</h3>
       <input type="password" class="api-key-input" id="api-key-field"
-        placeholder="gsk_…" oninput="saveApiKey(this.value)">
+        placeholder="sk-or-..." oninput="saveApiKey(this.value)">
     </div>
     <div class="sidebar-section">
       <h3>Hurtige emner</h3>
@@ -544,11 +544,11 @@ async function sendQ() {
   msgs.lastElementChild.scrollIntoView({behavior:'smooth'});
 
   try {
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type':'application/json', 'Authorization':'Bearer '+S.apiKey },
+      headers: { 'Content-Type':'application/json', 'Authorization':'Bearer '+S.apiKey, 'HTTP-Referer':'https://krigshelikopterw-maker.github.io', 'X-Title':'GeoAnalytik AI' },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
+        model: 'meta-llama/llama-3.3-70b-instruct:free',
         max_tokens: 1200,
         messages: [
           { role:'system', content: buildPrompt() },
